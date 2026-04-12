@@ -1,40 +1,100 @@
-# Pika Stats DLL (Minecraft 1.8 / tested on Lunar)
+# 📊 Pika Stats Overlay (Minecraft 1.8 ecosystem)
 
-Windows overlay for Minecraft 1.8 that reads players from the current world/TAB list and shows per-player stats with cache-first loading.
+Een client-side geïnjecteerde overlay voor Minecraft 1.8 die spelers in de huidige wereld en TAB-lijst detecteert en realtime statistieken toont via een cache-first systeem.
 
-## What this project does
-- Reads players from the active Minecraft world and TAB list.
-- Shows a live overlay table with:
-  - Level
-  - Rank
-  - Name
-  - Wins / WLR / FKDR / WS (or Practice columns)
-  - Guild
-  - UUID copy action
-- Uses cache-first rendering so rows appear quickly.
-- Updates missing/stale stats through Pika API requests.
-- Supports optional nick resolve/unick flow through local resolver/DB setup.
+---
 
-## Main features
-- TAB-driven loading flow (with optional auto-reload).
-- Strong generation/cycle guards to prevent old-world data commits.
-- Per-player incremental UI updates (no full-list blocking).
-- Persistent SQLite cache for faster repeated loads.
-- Dark theme UI with sorting and settings controls.
+## 🚀 Wat dit project doet
 
-## Build (quick)
-Run:
-- `scripts/build_project2.bat`
+De Pika Stats Overlay leest actieve spelers uit Minecraft (wereld + TAB) en toont een live overlay met statistieken per speler.
 
-Build output:
-- `PlayerReader_project2.dll` (latest project build)
-- `PlayerReader_main.dll` (current stable main copy)
-- `releases/main/PlayerReader_main.dll`
-- `releases/main/VERSION_MAIN.txt`
+Het systeem werkt **cache-first**, waardoor data direct zichtbaar is en daarna wordt aangevuld met API-updates op de achtergrond.
 
-## Build (CMake)
-Example:
-- `cmake -S . -B build`
-- `cmake --build build --config Release`
+---
 
+## ✨ Features
 
+### 👥 Spelerdetectie
+
+* Detectie van spelers uit de wereld (entity list)
+* Detectie van TAB-lijst spelers
+* Automatische deduplicatie van namen
+* Optionele nickname resolutie / unnick support
+
+---
+
+### 📊 Overlay statistieken
+
+Per speler:
+
+* Level
+* Rank
+* Wins
+* WLR (Win/Loss Ratio)
+* FKDR
+* Win Streak (WS)
+* Guild
+* UUID kopiëren
+
+*(optioneel uitbreidbaar per gamemode / server type)*
+
+---
+
+### ⚡ Performance systeem
+
+* Cache-first rendering (direct UI resultaat)
+* Incremental per-speler updates (geen full refresh cycles)
+* Guard system tegen stale world data
+* Asynchrone API updates zonder UI blocking
+
+---
+
+### 💾 Caching & opslag
+
+* Lokale SQLite cache
+* Snelle reload bij rejoin / server switch
+* TTL-based refresh systeem
+* Fallback naar cache bij API timeouts
+
+---
+
+### 🌐 API integratie
+
+* Pika Network API / custom endpoint support
+* Rate-limit safe request queue
+* Retry + backoff bij errors
+* Prioriteit voor zichtbare spelers
+
+---
+
+## 🧠 Architectuur overzicht
+
+* TAB/world reader → player queue
+* Cache lookup → directe UI render
+* Miss → async API fetch
+* Result update → per-player UI patch
+* Guard system voorkomt:
+
+  * duplicate entries
+  * world switch race conditions
+  * stale async updates
+
+---
+
+## ⚠️ Belangrijke notes
+
+* Ontworpen met Minecraft 1.8 ecosystem in gedachten (o.a. Lunar Client en vergelijkbare 1.8 builds)
+* Gedrag kan licht variëren per client implementatie binnen 1.8
+* TAB-lijst is leidend voor spelerdetectie
+* Cache kan tijdelijk oude data tonen (bewust design voor snelheid)
+* API updates gebeuren volledig async
+
+---
+
+## 📌 Aanbevolen verbeteringen
+
+* UUID-first indexing i.p.v. naam-based tracking
+* World/session ID tracking voor betere stabiliteit
+* Prioriteitssysteem voor zichtbare spelers
+* Atomic cache writes voor crash safety
+* Strakkere scheiding tussen UI en data-layer
