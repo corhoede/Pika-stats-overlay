@@ -1,31 +1,31 @@
-# 📊 Pika Stats Overlay (Minecraft 1.8 ecosystem)
+# 📊 Pika Stats Overlay (Minecraft 1.8)
 
-Een client-side geïnjecteerde overlay voor Minecraft 1.8 die spelers in de huidige wereld en TAB-lijst detecteert en realtime statistieken toont via een cache-first systeem.
+A client-side overlay for Minecraft 1.8 that detects players in the current world and TAB list and displays real-time statistics using a cache-first system.
 
 ---
 
-## 🚀 Wat dit project doet
+## 🚀 What this project does
 
-De Pika Stats Overlay leest actieve spelers uit Minecraft (wereld + TAB) en toont een live overlay met statistieken per speler.
+The Pika Stats Overlay reads active players from Minecraft (world + TAB list) and displays a live overlay with per-player statistics.
 
-Het systeem werkt **cache-first**, waardoor data direct zichtbaar is en daarna wordt aangevuld met API-updates op de achtergrond.
+The system is **cache-first**, meaning data appears instantly and is later updated asynchronously via API requests.
 
 ---
 
 ## ✨ Features
 
-### 👥 Spelerdetectie
+### 👥 Player detection
 
-* Detectie van spelers uit de wereld (entity list)
-* Detectie van TAB-lijst spelers
-* Automatische deduplicatie van namen
-* Optionele nickname resolutie / unnick support
+* Detects players from the world (entity list)
+* Detects players from the TAB list
+* Automatic name deduplication
+* Optional nickname resolution / unnick support
 
 ---
 
-### 📊 Overlay statistieken
+### 📊 Player statistics
 
-Per speler:
+Per player:
 
 * Level
 * Rank
@@ -34,46 +34,46 @@ Per speler:
 * FKDR
 * Win Streak (WS)
 * Guild
-* UUID kopiëren
+* UUID copy functionality
 
-*(optioneel uitbreidbaar per gamemode / server type)*
-
----
-
-### ⚡ Performance systeem
-
-* Cache-first rendering (direct UI resultaat)
-* Incremental per-speler updates (geen full refresh cycles)
-* Guard system tegen stale world data
-* Asynchrone API updates zonder UI blocking
+*(optionally extendable per gamemode / server type)*
 
 ---
 
-### 💾 Caching & opslag
+### ⚡ Performance system
 
-* Lokale SQLite cache
-* Snelle reload bij rejoin / server switch
-* TTL-based refresh systeem
-* Fallback naar cache bij API timeouts
+* Cache-first rendering (instant UI results)
+* Incremental per-player updates (no full refresh cycles)
+* Guard system against stale world data
+* Asynchronous API updates without blocking the UI
 
 ---
 
-### 🌐 API integratie
+### 💾 Caching & storage
+
+* Local SQLite cache
+* Fast reload on rejoin / server switch
+* TTL-based refresh system
+* Fallback to cache during API timeouts
+
+---
+
+### 🌐 API integration
 
 * Pika Network API / custom endpoint support
 * Rate-limit safe request queue
-* Retry + backoff bij errors
-* Prioriteit voor zichtbare spelers
+* Retry + backoff handling on errors
+* Priority-based loading for visible players
 
 ---
 
-## 🧠 Architectuur overzicht
+## 🧠 Architecture overview
 
 * TAB/world reader → player queue
-* Cache lookup → directe UI render
-* Miss → async API fetch
+* Cache lookup → instant UI render
+* Cache miss → async API fetch
 * Result update → per-player UI patch
-* Guard system voorkomt:
+* Guard system prevents:
 
   * duplicate entries
   * world switch race conditions
@@ -81,20 +81,20 @@ Per speler:
 
 ---
 
-## ⚠️ Belangrijke notes
+## ⚠️ Important notes
 
-* Ontworpen met Minecraft 1.8 ecosystem in gedachten (o.a. Lunar Client en vergelijkbare 1.8 builds)
-* Gedrag kan licht variëren per client implementatie binnen 1.8
-* TAB-lijst is leidend voor spelerdetectie
-* Cache kan tijdelijk oude data tonen (bewust design voor snelheid)
-* API updates gebeuren volledig async
+* Designed with the Minecraft 1.8 in mind (including Lunar Client and similar 1.8-based clients)
+* Behavior may slightly vary depending on client implementation within the 1.8
+* TAB list is the primary source for player detection
+* Cache may temporarily show stale data (intentional for performance)
+* API updates are fully asynchronous
 
 ---
 
-## 📌 Aanbevolen verbeteringen
+## 📌 Suggested improvements
 
-* UUID-first indexing i.p.v. naam-based tracking
-* World/session ID tracking voor betere stabiliteit
-* Prioriteitssysteem voor zichtbare spelers
-* Atomic cache writes voor crash safety
-* Strakkere scheiding tussen UI en data-layer
+* UUID-first indexing instead of name-based tracking
+* World/session ID tracking for better stability
+* Priority system for visible players
+* Atomic cache writes for crash safety
+* Clear separation between UI and data layers
