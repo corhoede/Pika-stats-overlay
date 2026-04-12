@@ -19,7 +19,6 @@ The system is **cache-first**, meaning data appears instantly and is later updat
 * Detects players from the world (entity list)
 * Detects players from the TAB list
 * Automatic name deduplication
-* Optional nickname resolution / unnick support
 
 ---
 
@@ -89,12 +88,4 @@ Per player:
 * Cache may temporarily show stale data (intentional for performance)
 * API updates are fully asynchronous
 
----
 
-## 📌 Suggested improvements
-
-* UUID-first indexing instead of name-based tracking
-* World/session ID tracking for better stability
-* Priority system for visible players
-* Atomic cache writes for crash safety
-* Clear separation between UI and data layers
