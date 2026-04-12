@@ -1,6 +1,6 @@
-# 📊 Pika Stats Overlay (Minecraft 1.8)
+# 📊 Pika Stats Overlay (Minecraft 1.8.9)
 
-A client-side overlay for Minecraft 1.8 that detects players in the current world and TAB list and displays real-time statistics using a cache-first system.
+A client-side overlay for Minecraft 1.8.9 that detects players in the current world and TAB list and displays real-time statistics using a cache-first system.
 
 ---
 
@@ -82,8 +82,8 @@ Per player:
 
 ## ⚠️ Important notes
 
-* Designed with the Minecraft 1.8 in mind (including Lunar Client and similar 1.8-based clients)
-* Behavior may slightly vary depending on client implementation within the 1.8
+* Designed with the Minecraft 1.8 in mind (including Lunar Client and similar 1.8.9-based clients)
+* Behavior may slightly vary depending on client implementation within the 1.8.9
 * TAB list is the primary source for player detection
 * Cache may temporarily show stale data (intentional for performance)
 * API updates are fully asynchronous
