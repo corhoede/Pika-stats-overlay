@@ -19,6 +19,7 @@ The system is **cache-first**, meaning data appears instantly and is later updat
 * Detects players from the world (entity list)
 * Detects players from the TAB list
 * Automatic name deduplication
+* Optional nickname resolution / unnick support
 
 ---
 
